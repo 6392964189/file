@@ -1,0 +1,49 @@
+Project: Web Content Q&A Tool
+This project extracts text from a webpage and allows users to ask questions based on that content. The answers are generated using OpenAI’s GPT-3.5-turbo model through LangChain. The user interacts with the tool via a Streamlit UI, making it easy to use.
+
+ Objective
+Extract content from any webpage given a URL.
+Allow users to ask questions based on the extracted content.
+Ensure that answers come only from the given webpage (not from external knowledge).
+Provide a user-friendly interface using Streamlit.
+
+
+ Technologies Used
+Python (Primary language)
+Streamlit (UI framework)
+LangChain (AI-based Q&A logic)
+OpenAI API (Language model for answering questions)
+BeautifulSoup (Extracts text from webpages)
+Requests (Fetches webpage content)
+
+Explanation of the Code
+🔹 Web Scraping Function (extract_text)
+This function extracts all text from <p> tags on a given webpage.
+
+Steps:
+
+Sends an HTTP request to the URL using requests.get().
+Parses the HTML content using BeautifulSoup.
+Extracts text from all <p> (paragraph) tags.
+Returns the extracted text as a single string.
+If the request fails (e.g., invalid URL, timeout), it returns an error message.
+🔹 Q&A Processing (answer_question)
+This function uses LangChain and OpenAI’s GPT-3.5-turbo model to answer questions based on webpage content.
+
+Steps:
+
+Loads OpenAI’s GPT-3.5 model with temperature=0 for factual accuracy.
+Defines a Prompt Template, ensuring the model only answers using the provided webpage content.
+Uses LLMChain to generate an answer using the webpage text as context.
+Why temperature=0?
+
+This makes the AI’s response deterministic, meaning the same input will always give the same output.
+It ensures factual answers rather than creative ones.
+🔹 Streamlit UI (User Interface)
+The interface is built using Streamlit for an interactive experience.
+
+st.title("🔍 Web Content Q&A Tool") → Sets the application title.
+st.text_input("Enter a Website URL:") → Allows users to input a URL.
+st.button("Extract Content") → Calls extract_text() and stores the result.
+st.text_input("Ask a Question:") → Allows users to enter a question.
+st.button("Get Answer") → Calls answer_question() and displays the response
